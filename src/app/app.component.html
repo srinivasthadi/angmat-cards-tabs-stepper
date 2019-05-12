@@ -1,75 +1,130 @@
-<!--  Menu -->
-<mat-menu #appMenu="matMenu" xPosition="after" yPosition="above">
-  <button mat-menu-item [matMenuTriggerFor]="submenu">
-      <span><mat-icon>tab</mat-icon> FrontEnd </span> 
-  </button>
-  <button mat-menu-item>
-      <span><mat-icon>store</mat-icon> BackEnd </span>
-  </button>
-</mat-menu>
 
-<button mat-flat-button [matMenuTriggerFor]="appMenu">
-  Menu</button>
+<!-- 15 Expansion Panel 
+import { MatExpansionModule } from '@angular/material';
 
-<!--  Theory for Menu
-  Menu is created using mat-menu element with buttons and buttons are attributed
-  mat-menu-item and then it is triggered by default. In order for it trigger,
+Expansion panel is created using mat-expansion-panel, which contains
+mat-expansion-header-panel and then it contains title and descritpion
+It is created like below 
 
-  we have to create a button mat-flat-button with [matMenuTriggerFor] and 
-  then it is binded with appMenu, which is template reference variable for menu-menu
+We can take the action using the button, which is creted using mat-action-row
+
+We use accordion to group expansion panels 
+
+They will act in a group instead of acting individually
+
+We use multi="true" to keep other expansion panel open when opening another
+
+We also hideToggle attriute to hide the arrow down at the end of expansion panel
+
+We can take the action on panel open and close and event listeners can be used upon them
+
+I need to explore while developing the projects
+-->
+<mat-accordion multi="true">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Angular Fundamentals
+          </mat-panel-title>
+          <mat-panel-description>
+            Total Duration : 2 Hours
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+          This is the panel expansion module description, it is used create nice expansion panels.
+        </p>
+        <mat-action-row>
+          <button mat-button>Enroll</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+      
+      <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Angular Material
+            </mat-panel-title>
+            <mat-panel-description>
+              Total Duration : 1 Hours
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <p>
+            This is Angular Materail, it is used to create nice UI.
+          </p>
+          <mat-action-row>
+            <button mat-button>Enroll</button>
+          </mat-action-row>
+      </mat-expansion-panel>
+      
+</mat-accordion>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 14 Grid List
+
+import {MatGridListModule } from '@angular/material';
+
+We can use colspan ="2" and rowspan ="4" on mat-grid-tile 
+depending on the requirement
+
+By default rowHeight would be of column size
+We can keep the row height using rowHeight attribute
+rowHeight="200px" or rowHeight="2:1", it is column to row ratio, 
+row will be half of column when we say rowHeight="2:1"
+
+rowHeight can be using rowHeight="fit" and height is specified using
+style="200px"
+
+Last one is gutterSize="10px", it is the spacing between the grid rows and columns
 
 -->
 
-<!-- Nested Menu  -->
+<mat-grid-list cols="2" rowHeight="fit" style="height:200px" gutterSize="10px">
+  <mat-grid-tile colspan="1">Tile 1 </mat-grid-tile>
+  <mat-grid-tile>Tile 2 </mat-grid-tile>
+  <mat-grid-tile>Tile 3 </mat-grid-tile>
+  <mat-grid-tile>Tile 4 </mat-grid-tile>
+</mat-grid-list>
 
-<mat-menu #submenu="matMenu">
-  <button mat-menu-item>Angular</button>
-  <button mat-menu-item>Reactive</button>
-  <button mat-menu-item>Vue</button>
-</mat-menu>
 
-<!--  Theory for Submenu
-  Another mat-menu can be defined and given template reference variable
-  and bind it to #submenu="matMenu"
-  To trigger the submenu, we need to bind it to the menu-item in main menu
-  using [matMenuTriggerFor]="submenu" on the menu-item, which you want to use
-  for triggering
-  We can position the menu's xPosition and yPosition, refer above.
+
+<!-- Mat List 
+
 -->
 
-<!--Before we can click on the menu, all the choices and submenus will be set
-It will be problematic when doing the dynamic rendering, 
-To help with the dynamic rendering of menu items, we can use lazy loading
-Here to render the data dynamically, we use ng-template with matMenuContet attribute
-I have created mat-menu along with buttons to trigger them
-In order to pass the data dynamically, we use the databinding 
-[matMenuTriggerData] property and then we pass object to it
+<mat-list>
+  <mat-list-item>
+    <mat-icon matListIcon>home</mat-icon>
+    <h3 matLine>Heading 1</h3>
+    <p matLine>Line 1</p>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-list-item>
+      <mat-icon matListIcon>folder</mat-icon>
+      <h3 matLine>Heading 2</h3>
+      <p matLine>Line 2</p>
+  </mat-list-item>
 
-[matMenuTriggerData]="{name: 'Sri', hobby: 'Coding'}"
+</mat-list>
 
-In order to receive it, we create local variables let-name and let-hobby
-and then bind them with name and hobby 
-let-name="name" let-hobby="hobby"
+<mat-list dense>
+  <mat-list-item>Item 1</mat-list-item>
+  <mat-list-item>Item 2</mat-list-item>
+  <mat-list-item>Item 3</mat-list-item>
+</mat-list>
 
-We can use interpolation inside the mat-menu-item, to display them like below
--->
-
-<mat-menu #lazyMenu="matMenu">
-    <ng-template matMenuContent let-name="name" let-hobby="hobby">
-      <button mat-menu-item>Settings</button>
-      <button mat-menu-item>Hobby is {{hobby}}</button>
-      <button mat-menu-item>Logout {{name}}</button>
-    </ng-template>
-</mat-menu>
-  
-  <button mat-raised-button [matMenuTriggerData]="{name: 'Sri', hobby: 'Coding'}" [matMenuTriggerFor]="lazyMenu">
-      Srinivas
-  </button>
-
-  <button mat-raised-button [matMenuTriggerData]="{name: 'Vasu', hobby: 'Reading'}" [matMenuTriggerFor]="lazyMenu">
-      Srivasu
-  </button>
-
-
-
-
+<!--Also provides navigation using mat-nav-list-->
+ <mat-nav-list>
+  <a mat-list-item href="#">Home</a>
+  <a mat-list-item href="#">About</a>
+  <a mat-list-item href="#">Services</a>
+</mat-nav-list> 

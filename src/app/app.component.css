@@ -5,3 +5,15 @@ body {
 button {
     margin-right: 2rem;
 }
+
+mat-grid-tile {
+    background-color: lightblue;
+}
+
+mat-grid-list {
+    margin: 10px;
+}
+
+mat-expansion-panel {
+    background-color: lavender;
+}
